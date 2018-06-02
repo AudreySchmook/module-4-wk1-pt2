@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var monkeysRouter = require('./routes/monkeys');
 
 var app = express();
 
@@ -19,23 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/users', function(req,res){
-  res.send("Print out user list.");
-});
-
-app.get('/users/:username', function(req,res){
-  var name = req.params.username;
-  res.send("Hello " + name + ", your request is being processed...");
-})
-
-app.get('/users/:username/:location', function(req,res){
-  var name = req.params.username;
-  var loc = req.params.location;
-  res.send("Hello " + name + ", you\'re at " + loc);
-})
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/monkeys', monkeysRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
